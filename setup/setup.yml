@@ -56,7 +56,8 @@
         #   convert -background white -fill black -font Courier -pointsize 72 "label:$password" password.gif
         #
         # instructors
-        - { name: 'rmurri', shell: '/bin/bash', uid: '1001', group: 'instructors', password: '$6$WurJIXBdXlbc$uS/JduybhwlEz1/WDYylzwchP2QEsSN9MW2KHuQCXJALQSA3zDTuiu/hiC7E2wlaSU7DdtRTYj9SpsNDObno41' }  # vesting-nether-blasphemers-rouge
+        - { name: 'shaug', shell: '/bin/bash', uid: '1001', group: 'instructors', password: '$6$WurJIXBdXlbc$uS/JduybhwlEz1/WDYylzwchP2QEsSN9MW2KHuQCXJALQSA3zDTuiu/hiC7E2wlaSU7DdtRTYj9SpsNDObno41' }  # vesting-nether-blasphemers-rouge
+        - { name: 'akashev', shell: '/bin/bash', uid: '1002', group: 'instructors', password: '$6$WurJIXBdXlbc$uS/JduybhwlEz1/WDYylzwchP2QEsSN9MW2KHuQCXJALQSA3zDTuiu/hiC7E2wlaSU7DdtRTYj9SpsNDObno41' }  # vesting-nether-blasphemers-rouge
         # students
         - { name: 'py01', shell: '/bin/bash', uid: '1010', group: 'students', password: '$6$fu4JC1jl.CwCHmZ$nj23bNmFOWQUREOUQG1.66UJpN2262Fu/4aIKS2MMBFZCRXp7W64hjtW4G5eMekNz1GOf9bH6QZ/5r5RJKcJp1' }  # hided-xenophobic-Pyrenees-pagination
         - { name: 'py02', shell: '/bin/bash', uid: '1011', group: 'students', password: '$6$O0ftmHGSnVGuP$ZN/c35jXHRzpozloj9.2wjfMKiA3pmlr1SvLHePfjWuaZ5wVI.0Vwwh2rLIsMbOCY845wWGKyyRwR.79dq.OD1' }  # relating-thermoplastic-bays-applicants
@@ -158,14 +159,16 @@
         name: '{{item}}'
         groups: 'admin,sudo'
       with_items:
-        - rmurri
+        - akashev
+        - haug
 
     - name: Ensure sysadmin SSH keys are authorized for user 'ubuntu'
       authorized_key:
         user: "ubuntu"
         key: "{{ item }}"
       with_file:
-        - keys/riccardo.murri
+        - keys/akashev
+        - keys/shaug
 
     - name: Deploy `broadcast` script
       copy:
@@ -195,46 +198,46 @@
       apt:
         upgrade=yes
 
-    # - name: Install required OS software
-    #   apt:
-    #     name: '{{ item }}'
-    #     state: latest
-    #   with_items:
-    #     - build-essential
-    #     - emacs
-    #     - g++
-    #     - gcc
-    #     - gfortran
-    #     - git
-    #     - graphviz
-    #     - kexec-tools
-    #     - lzip
-    #     - p7zip-full
-    #     - pdsh
-    #     - rsync
-    #     - screen
-    #     - tar
-    #     - tig
-    #     - tmux
-    #     - unzip
-    #     - vim
-    #     - xz-utils
-    #     - zutils
+     - name: Install required OS software
+       apt:
+         name: '{{ item }}'
+         state: latest
+       with_items:
+         - build-essential
+         - emacs
+         - g++
+         - gcc
+         - gfortran
+         - git
+         - graphviz
+         - kexec-tools
+         - lzip
+         - p7zip-full
+         - pdsh
+         - rsync
+         - screen
+         - tar
+         - tig
+         - tmux
+         - unzip
+         - vim
+         - xz-utils
+         - zutils
 
     #
     # More SW
     #
 
-    # # this needs to happen after Anaconda has been installed
-    # - name: install additional Python packages into Anaconda
-    #   pip:
-    #     name: '{{ item }}'
-    #     state: present
-    #     executable: /opt/anaconda3/bin/pip
-    #   with_items:
-    #     - ggplot
-    #     - nilearn
-    #     - seaborn
+     # this needs to happen after Anaconda has been installed
+     - name: install additional Python packages into Anaconda
+       pip:
+         name: '{{ item }}'
+         state: present
+         executable: /opt/anaconda3/bin/pip
+       with_items:
+         - ggplot
+         - nilearn
+         - seaborn
 
     #
     # Cosmetics
@@ -270,8 +273,8 @@
 
     - name: Check out course material
       git:
-        repo: https://github.com/riccardomurri/python-for-science-intro.git
-        dest: /var/tmp/
+        repo: https://github.com/kav2k/python-for-science-intro.git
+        dest: /var/tmp/python-for-science-intro
         depth: 1
 
     - name: Copy material to all user homes

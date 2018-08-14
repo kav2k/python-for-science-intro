@@ -10,15 +10,16 @@
   A Short and Incomplete Introduction to Python
 }
 \subtitle{\bfseries Part 0: Introduction}
-\author[R.~Murri]{%
-  \textbf{Riccardo Murri} \texttt{<riccardo.murri@uzh.ch>}, \\
-  Sergio Maffioletti \texttt{<sergio.maffioletti@uzh.ch>}
+\author[S.~Haug]{%
+  \textbf{Sigve Haug} \texttt{<sigve.haug@math.unibe.ch>}, \\
+  Alexander Kashev \texttt{<alexander.kashev@math.unibe.ch>} \\
+  Science IT Support (ScITS), University of Bern \\
+  \medskip
+  Based on a course by Riccardo Murri / Sergio Maffioletti
   \\
-  S3IT: Services and Support for Science IT,
-  \\
-  University of Zurich
+  S3IT: Services and Support for Science IT, UZH
 }
-\date{June 7--8, 2018}
+\date{August 20--21, 2018}
 
 
 \begin{document}
@@ -54,13 +55,91 @@
 
 \begin{frame}
   \frametitle{Prerequisites}
-  This course assumes a basic experience with computer programming.
+  Normally, a course like this assumes a basic experience with computer programming.
 
   \+
   Any language should do, as long as you are already familiar with
   the concepts of variables and functions.
+
+  \+
+  However, for the benefit of non-programmers, we will provide a short intro to basic concepts.
+
+  \+
+  If this applies to you, this is a helpful place to start:
+
+  \url{https://wiki.python.org/moin/BeginnersGuide/NonProgrammers}
+  
 \end{frame}
 
+\begin{frame}
+  \frametitle{Why program at all?}
+
+  \emph{``The good news about computers is that they do what you tell them to do.
+  The bad news is that they do what you tell them to do.''}
+
+  \+
+  Computers are a wonderful invention, allowing to automate and accelerate
+    processing of data. Like a Swiss army knife, it can be used for a great
+    number of tasks.
+
+  \+
+  However, for each particular workflow computers need to be instructed
+    precisely on what to do. It's the job of the \textbf{software},
+    and software needs to be written.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Why should I program? I}
+
+  \textbf{Automate boring, repetitive tasks.} Computers excel at mass-processing
+    of data. Automating tasks can save time and reduce the number of errors.
+
+  \+
+  Some tasks are so massive in scope they cannot be solved without computers.
+
+  \+
+  \textbf{Solve my specific tasks.} Even if existing software
+  can be used in solving parts of your task, perhaps no single one does it
+  exactly the way you want from start to finish.
+  
+  \+
+  If you can tie other programs together, modify them, or write your own --- you can achieve better results.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Why should I program? II}
+
+  \textbf{Understanding limitations.} Non-programmers often have little idea of
+  what is possible to do with computers, and how hard or easy it is.
+  
+  \+
+  Learning programming helps you specify your requirements better, even if someone
+  else will do the bulk of the work.
+
+  \+
+  \textbf{Fun.} Programming is a creative activity. If you get into it, it can be
+  genuinely enjoyable to do.
+  
+  \+
+  And if your program helps others, it's an added bonus.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Why Python?}
+
+  \textbf{Relative simplicity.} Python isn't hard to install on many different systems.
+  Code in Python can be simpler to express, which is great for learning.
+
+  \+
+  \textbf{High level language.} Programming with Python does not require intimate
+  knowledge of how computers work, at least to start with.
+
+  \+
+  \textbf{Popularity.} Python is a very popular language. In practice,
+  this means that a lot of ready recipes and tools exist for many tasks (especially scientific ones),
+  and a lot of advice is available online.
+
+\end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Python 2 \emph{vs} Python 3}
@@ -90,15 +169,15 @@
 \end{frame}
 
 
-\begin{frame}
-  \frametitle{Talk outline}
-  \begin{enumerate}
-  \item Python basics
-  \item NumPy and plotting
-  %\item Pandas and how to query tabular data
-  \item Workflows with GC3Pie
-  \end{enumerate}
-\end{frame}
+% \begin{frame}
+%   \frametitle{Talk outline}
+%   \begin{enumerate}
+%   \item Python basics
+%   \item NumPy and plotting
+%   %\item Pandas and how to query tabular data
+%   \item Workflows with GC3Pie
+%   \end{enumerate}
+% \end{frame}
 
 
 \begin{frame}
@@ -120,28 +199,71 @@
   Python is an \emph{interpreted} language.
 
   \+
+  This means that Python code is ready to be immediately run,
+  including line by line, without an initial compilation of the whole program.
+
+  \+
   It also features an interactive
   \href{http://en.wikipedia.org/wiki/REPL}{``shell''} for evaluating
   expressions and statements immediately.
+
+  \+
+  If you have Python installed, you can use \texttt{python} to invoke
+  a basic interactive shell.
+\begin{semiverbatim}\tiny
+\$ \textbf{python}
+Python 3.6.5 |Anaconda, Inc.| (default, Apr 29 2018, 16:14:56) 
+[GCC 7.2.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>{}>{}> {\color{blue}\normalfont\em \(\leftarrow\) here is where you enter commands}
+\end{semiverbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{The Python shell, II}
+  The interactive mode of Python is very bare-bones.
+  There are better options for interactive shells with Python.
+  
+  \+
+  One of them is IPython, which is installed by default with Anaconda and can be installed
+  as a module for other Pythons installations.
 
   \+
   The IPython shell is started by invoking the command
   \texttt{ipython} in a terminal window.
 \begin{semiverbatim}\tiny
 \$ \textbf{ipython}
-Python 2.7.13 |Anaconda 4.3.0 (64-bit)| (default, Dec 20 2016, 23:09:15)
-Type "copyright", "credits" or "license" for more information.
-
-IPython 5.1.0 -- An enhanced Interactive Python.
-?         -> Introduction and overview of IPython's features.
-%quickref -> Quick reference.
-help      -> Python's own help system.
-object?   -> Details about 'object', use 'object??' for extra details.
+Python 3.6.5 |Anaconda, Inc.| (default, Apr 29 2018, 16:14:56) 
+Type 'copyright', 'credits' or 'license' for more information
+IPython 6.4.0 -- An enhanced Interactive Python. Type '?' for help.
 
 \textbf{In [1]:}{\color{blue}\normalfont\em \(\leftarrow\) here is where you enter commands}
 \end{semiverbatim}
 \end{frame}
 
+\begin{frame}[fragile]
+  \frametitle{Python scripts}
+  Interactive mode is good for experimentation, but eventually you want
+  to save your code for future reuse.
+
+  \+
+  In that case, you use a text (or code) editor to write your code in a file,
+  and tell Python to run that code.
+
+  \+
+  As an obligatory first example, \textbf{hello.py:} 
+
+\begin{semiverbatim}
+print("Hello world!")
+\end{semiverbatim}
+
+  And running it:
+
+\begin{semiverbatim}
+\$ \textbf{python hello.py} 
+Hello world!
+\end{semiverbatim}
+\end{frame}
 
 \begin{frame}
   \frametitle{The IPython notebook, I}
@@ -155,7 +277,7 @@ object?   -> Details about 'object', use 'object??' for extra details.
     \begin{column}{0.5\textwidth}
       \small
 
-      A more appealing way of interacting with Python is through the IPython
+      A more appealing way of interacting with Python is through the IPython (Jupyter)
       notebooks.
 
       \+
@@ -173,6 +295,9 @@ object?   -> Details about 'object', use 'object??' for extra details.
 \begin{frame}
   \frametitle{The IPython notebook, II}
 
+  Notebooks are somewhere in-between interactive shell and written and saved script.
+
+  \+
   To run Python code in the notebook:
   \begin{itemize}
   \item Type your code in a cell besides the {\ttfamily\bfseries\color{blue}
@@ -188,7 +313,7 @@ object?   -> Details about 'object', use 'object??' for extra details.
 
 
 \begin{frame}[fragile,fragile]
-  \frametitle{The Python shell, II}
+  \frametitle{The Python shell, III}
   \smaller
 
   Expressions can be entered at the Python shell prompt; they are evaluated and the

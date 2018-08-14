@@ -1,0 +1,129 @@
+01. Intro:
+
+* "Assume basic experience"
+* Python 2 vs 3
+* Accessing the notebook
+* Interactive prompt and how to use a notebook for that
+
+01. Basics:
+
+* Lines of code, splitting them
+* String literals
+* Operators
+* .format() for string interpolation
+* Variable assignment
+* Basic types in Python
+
+02. Functions:
+* Calling Functions
+* help() function
+* Defining a simple function (with a docstring for help())
+  * Functions with variable number of arguments
+  * Default values for arguments
+  * Named arguments
+* return statement
+* if-elif-else
+* while-break-continue
+* Modules and import / import-from
+
+03. Sequences and loops:
+* Sequences: list / tuple / str
+  * Mention of arrays/dataframes from numpy/pandas
+* List literals
+* Access by index
+* Length
+* Use of sum() / max() / min() on lists
+> Exercise: write `avg()` for lists (without loops!)
+* Slices [n:m]
+* Changing data in a list
+  * .append(), .insert(), .remove(), .pop(), .index(), .count(), .extend()
+  * +, * on lists
+* for-in loops
+* sorted(), reversed()
+> Exercise: filtering a list, building a list of deviations
+* map(), filter(), reduce()
+* Mentions only: dict, set, frozenset, dequeue, namedtuple, OrderedDict
+* Plotting with matplotlib + seaborn
+  * Enabling in Jupyter
+  * Line plots with .plot(x,y)
+  * Subplots, axes, figures, .savefig()
+* Sets
+* Tuples
+  * Multiple assignment (x,y)=(z,w)
+
+04. Numpy [as notebook]:
+* Importing numpy
+* Arrays
+  * Access by index/slice
+  * Arrays are homogenous
+  * Data type at creation
+* Splitting arrays
+* Basic plotting
+  * arange(), ones(), linspace()
+* Operations on arrays
+* Matrices
+  * .shape, .T, dot()
+* Examples of math functions like sin(), exp(), ...
+* Saving and loading arrays/Matrices as files
+
+05. String processing and files
+* Strings as lists of characters
+* Operations on strings
+  * .upper(), .split(), .startswith() and friends
+  * .replace(), .strip()
+> Exercises: split at commas, remove quotes
+* File I/O
+  * with open ... as
+  * Open modes
+* Reading with .read() and .readlines()
+* Converting types (to interpret strings)
+* in operator (not for-in)
+> Exercises for reading / filtering files
+* os module for navigating filesystem
+
+06. Exceptions
+* How they look like (unhandled)
+* try-except-finally
+* Common Exception types
+* raise
+> Exercise: adapt an earlier exercise to deal with exceptions
+
+07. Dicts etc.
+* Dicts, dict literals
+* for-in for dicts
+  * .keys(), .values()
+> Exercise: counting words in a files
+* Variables-as-references, is operator, pass-by-reference
+  * What it means for mutable objects
+  * Shallow and deep copy
+* Mutable vs immutable
+  * Use as dict keys
+
+08. Pandas [as notebook]
+* Importing pandas
+* Creating DataFrames
+  * From a CSV file
+  * From NumPy arrays
+* .shape
+* Selecting columns, building a new DataFrame from subset
+* Deleting columns, adding columns
+* .describe(), .head()
+* Selectors for data, modifying data with .loc[]
+* Grouping, aggregation
+* Plotting data
+* Demo of some statistics on the dataset
+
+09. OOP
+* Python objects
+* Instantiation
+* Methods
+* Defining an object (2D Vector)
+  * __init__, self
+* Scopes for names
+> Exercises: extending the Vector
+
+10. Workflows with gc3pie
+(not relevant)
+
+11. End
+* Links to further reading

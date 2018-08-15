@@ -110,6 +110,7 @@
 The \texttt{len()} function returns the number of items in any
   sequence (not just lists).
 \begin{lstlisting}
+>>> L = ['U', 'Z', 'H']
 >>> len(L)
 3
 \end{lstlisting}
@@ -397,21 +398,43 @@ and to loop over a sequence in \textit{inverted} order you can use the
 
 
 \begin{frame}[fragile]
+  \frametitle{Iterables vs lists}
+
+  Some functions (esp. in Python 3) return sequence-like
+  \textbf{iterable} objects that are not lists.
+  Usually, this is done to conserve resources.
+
+  \+
+  Examples are \texttt{range()}, \texttt{map()}, \texttt{reversed()}, \ldots
+
+  \+
+  You can use them in \texttt{for..in} cycles the same way,
+    but if you want other operations you need to convert:
+
+\begin{lstlisting}
+>>> a = reversed([1,2,3])
+>>> a[0]
+TypeError: 'list_reverseiterator' object is not
+subscriptable
+>>> a = list(reversed([1,2,3]))
+>>> a[0]
+3
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
   This is how you could rewrite Exercises~7 and~8 using \texttt{map} and
   \texttt{filter}.
 
-  \begin{columns}
-    \begin{column}{0.5\linewidth}
 \begin{python}
 # *** Exercise 3.B ***
 def is_odd(x):
   return (x % 2 == 1)
 
 def odd(L):
-  return filter(is_odd, L)
+  return list(filter(is_odd, L))
 \end{python}
-\end{column}
-\begin{column}{0.5\linewidth}
 \begin{python}
 # *** Exercise 3.C ***
 def deviation(L, m):
@@ -419,11 +442,10 @@ def deviation(L, m):
   # func's in func's!
   def delta(x):
     return abs(x-m)
-  return map(delta, L)
+  return list(map(delta, L))
 \end{python}
-\end{column}
-  \end{columns}
 \end{frame}
+
 
 
 \begin{frame}
@@ -494,17 +516,17 @@ import seaborn as sea
 
 \begin{frame}
   \frametitle{Line plots, I}
-  The \texttt{plt.plot($x$, $y$)} function can be used to make a $2D$ line plot.
+  The \texttt{plt.plot($xs$, $ys$)} function can be used to make a $2D$ line plot.
 
   \+
-  Arguments \texttt{$x$} and \texttt{$y$} are sequences: corresponding items in
+  Arguments \texttt{$xs$} and \texttt{$ys$} are sequences: corresponding items in
   the two sequences give the $2D$ coordinates of points in the plot.
 
   \+
   Note that:
   \begin{itemize}
-  \item \texttt{$x$} must be \emph{sorted}!
-  \item \texttt{$x$} and \texttt{$y$} must have the same length.
+  \item \texttt{$xs$} must be \emph{sorted}!
+  \item \texttt{$xs$} and \texttt{$ys$} must have the same length.
   \end{itemize}
 \end{frame}
 
@@ -512,9 +534,9 @@ import seaborn as sea
 \begin{frame}[fragile]
   \frametitle{Line plots, II}
 \begin{semiverbatim}\small
-\In \,\,x = [0, 1, 2, 3, 4, 5]
-\In \HL{y = [3, 3, 3, 3, 3, 3]}
-\In plt.plot(x, y)
+\In \,\,xs = [0, 1, 2, 3, 4, 5]
+\In \HL{ys = [3, 3, 3, 3, 3, 3]}
+\In plt.plot(xs, ys)
 \Out [<matplotlib.lines.Line2D at 0x7fe8a3454750>]
 \end{semiverbatim}
   \begin{center}
@@ -526,8 +548,8 @@ import seaborn as sea
 \begin{frame}[fragile]
   \frametitle{Line plots, III}
 \begin{semiverbatim}\small
-\In \,\,x = [0, 1, 2, 3, 4, 5]
-\In \HL{y = x}
+\In \,\,xs = [0, 1, 2, 3, 4, 5]
+\In \HL{ys = x}
 \In plt.plot(x, y)
 \Out [<matplotlib.lines.Line2D at 0x7fe8a3454750>]
 \end{semiverbatim}
@@ -547,12 +569,12 @@ import seaborn as sea
 fig, ax = plt.subplots(1, 1, figsize=[10, 7])
 
 # common x-axis items
-x = [0, 1, 2, 3]
+xs = [0, 1, 2, 3]
 
 # three lines
-ax.plot(x, [0, 0, 0, 0])
-ax.plot(x, [0, 1, 2, 3])
-ax.plot(x, [0, 1, 4, 9])
+ax.plot(xs, [0, 0, 0, 0])
+ax.plot(xs, [0, 1, 2, 3])
+ax.plot(xs, [0, 1, 4, 9])
 
 
 # save to file
@@ -619,7 +641,7 @@ fig.savefig('fig/lineplot2.pdf')
 \begin{frame}
   \frametitle{Scatter plots}
 
-  Use the \texttt{plt.scatter(x, y)} function.
+  Use the \texttt{plt.scatter(xs, ys)} function.
 
   \+
   Everything else works as in line plots.
@@ -629,14 +651,14 @@ fig.savefig('fig/lineplot2.pdf')
 \begin{frame}[fragile]
   \frametitle{Bar plots}
 
-  Use Seaborn's \texttt{sea.barplot(x, y)} function.
+  Use Seaborn's \texttt{sea.barplot(xs, ys)} function.
 
   \+
   Everything else works \emph{almost} as in line plots; when you need to plot
   onto an axis (the \texttt{ax} object of previous examples), then you need to
   pass the axis as an additional parameter:
 \begin{semiverbatim}
-sea.barplot(x, y, ax=ax)
+sea.barplot(xs, ys, ax=ax)
 \end{semiverbatim}
 \end{frame}
 

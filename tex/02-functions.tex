@@ -42,12 +42,30 @@
 
 \begin{frame}[fragile,label=func1]
   \frametitle{Functions, I}
-  Functions are called by postfixing the function name with a
-  parenthesized argument list.
+  \textbf{Functions} are portions of the code given a name,
+    which can be used to execute (\textbf{call}) them later.
+
+  \+
+  Functions often take \textbf{arguments} --- parametric values
+    that can differ from one call to another.
+
+  \+
+  After running, a function can \textbf{return} a value,
+    just like using a variable to get its stored value.
+
+  \+
+  Some functions are built into Python, like \texttt{print()},
+    and some come from \textbf{modules}.
+\end{frame}
+
+\begin{frame}[fragile,label=func1]
+  \frametitle{Functions, II}
+  Functions are called by adding a parenthesized argument list
+    to the function name:
 
   \+
 \begin{lstlisting}
->>> int("42")
+>>> int("42") # One argument, "42"
 42
 >>> int(4.2)
 4
@@ -55,14 +73,16 @@
 42.0
 >>> str(42)
 '42'
->>> str()
+>>> str() # No arguments
 ''
+>>> sum(2, 4) # Two arguments, 2 and 4
+6
 \end{lstlisting}
 \end{frame}
 
 
 \begin{frame}[fragile]
-  \frametitle{Functions, II}
+  \frametitle{Functions, III}
   Some functions can take a variable number of arguments. For instance:
 
   \+
@@ -109,7 +129,7 @@
   """
   A friendly function.
   """
-  print ("Hello, " + name + "!")
+  print("Hello, " + name + "!")
 
 # the customary greeting
 greet("world")
@@ -130,7 +150,7 @@ def greet(name):
   """
   A friendly function.
   """
-  ~\HL{print ("Hello, " + name + "!")}~
+  ~\HL{print("Hello, " + name + "!")}~
 
 # the customary greeting
 greet("world")
@@ -152,7 +172,7 @@ def greet(name):
   """
   A friendly function.
   """
-  print ("Hello, " + name + "!")
+  print("Hello, " + name + "!")
 
 ~\HL{\it\tt\#\ the customary greeting}~
 greet("world")
@@ -173,7 +193,7 @@ def greet(name):
   """
   A friendly function.
   """
-  print ("Hello, " + name + "!")
+  print("Hello, " + name + "!")
 
 # the customary greeting
 ~\HL{greet("world")}~
@@ -296,6 +316,30 @@ def double(x):
 
 
 \part{Basic control flow}
+
+\begin{frame}[fragile]
+  \frametitle{Control flow}
+  When Python executes code, it goes from line to line,
+    executing them in order.
+
+  \+
+  We've already seen an exception to it: functions.
+    The block of code they represent is executed when
+    a function is called from other code.
+
+\begin{lstlisting}
+def example():
+  second() # Executes second
+
+first()    # Executes first
+example()  # Calls the example function
+third()    # Executes last
+\end{lstlisting}
+
+  Sometimes, we want \textbf{conditional} execution:
+    some block of code is only run when some condition is met.
+\end{frame}
+
 \begin{frame}[fragile]
   \frametitle{Conditionals}
   Conditional execution uses the \texttt{if} statement:
@@ -308,7 +352,8 @@ else:
   # executed if none of the above matched
 \end{lstlisting}
 
-  \+The \texttt{elif} can be repeated, with different conditions, or
+  \+
+  The \texttt{elif} can be repeated, with different conditions, or
   left out entirely.
 
   \+
@@ -324,7 +369,37 @@ else:
 
 
 \begin{frame}[fragile]
+  \frametitle{Truth values}
+  Any value can be tested in a condition,
+    implicitly converting it to a boolean (\texttt{True}/\texttt{False}):
+
+\begin{lstlisting}
+if 4: # Same as "if bool(4):"
+  print("4 is considered 'true'")
+\end{lstlisting}
+
+  A non-zero number, a non-empty string, a non-empty sequence (see next part)
+    are all example of "truthy" values.
+
+  \+
+  The number 0, the empty string, an empty sequence and \texttt{None} are "false".
+
+\begin{lstlisting}
+if x != 0:
+  print("x is not zero")
+
+if x:
+  print("x is not zero (if it's a number)")
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
   \frametitle{\texttt{while}-Loops}
+  \textbf{Loops} are blocks of code that execute repeatedly,
+    usually until some condition is met.
+
+  \+
   Conditional looping uses the \texttt{while} statement:
 \begin{lstlisting}
 while ~\it expr~:
@@ -333,13 +408,16 @@ while ~\it expr~:
 % else:
 %   # executed at natural end of the loop
 
-  \+
   To break out of a \texttt{while} loop, use the \texttt{break}
   statement.
 
   \+
   Use the \texttt{continue} statement anywhere in the indented
   block to jump back to the \texttt{while} statement.
+
+  \+
+  You will see a more common form of loop, \texttt{for..in},
+    in the next part.
 
   % \+
   % If a loop is exited via a \texttt{break} statement, the

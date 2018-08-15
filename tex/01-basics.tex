@@ -274,6 +274,7 @@ TypeError: unsupported operand type(s) for /: 'str' and 'int'
 
   \+
   \textbf{Variables} are names for pieces of data in memory.
+  When used, they are substituted with their value.
 
   \+
   Names must start with a letter, and can contain letters, numbers and underscores `\_'.
@@ -283,9 +284,9 @@ TypeError: unsupported operand type(s) for /: 'str' and 'int'
   and use them in other expressions:
 
 \begin{semiverbatim}
-\In a = 11
+\In a = 11 # Assigning 11 to a
 \In b = 3
-\In c = a - b
+\In c = a - b # Using saved values a and b
 \In c
 \Out 8
 \end{semiverbatim}
